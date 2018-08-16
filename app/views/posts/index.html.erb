@@ -1,0 +1,33 @@
+<% @post.each do |x| %>
+  <div >
+    <br><br>
+    <tr>
+      <td>
+        <%= image_tag(x.image.url, size: "300x300") %>
+        
+      </td>
+       </tr>
+       <br><br>
+      <tr>
+        <td>
+         <%= x.description %>
+      </td>
+      </tr>
+      <br><br>
+      <% if user_signed_in? %>
+      <tr>
+        <td>
+          <%= link_to "Edit", edit_post_path(x) %>
+        </td>
+        <td>
+        <%= link_to "Destroy", x, method: :delete, data: {confirm: "Are you sure?"} %>
+      </td>
+      </tr>
+      <% end %>
+   
+    
+      
+
+   
+  </div>
+<% end %>
