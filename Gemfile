@@ -23,6 +23,7 @@ gem 'sqlite3'
 gem 'delayed_job_active_record'
 gem 'jquery-rails'
 
+gem "letter_opener", :group => :development
 
 gem 'bootstrap-sass', '~> 3.3.7'
 
