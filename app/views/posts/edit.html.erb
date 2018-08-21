@@ -1,12 +1,38 @@
 <h2>Edit Post</h2>
 <hr>
-<%= form_for @post, html: {multipart: true} do |f| %>
-  <%= f.label :image %>
-  <%= f.file_field :image %>
-  <br>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <br>
-  <%= f.submit :update %>
 
-<% end %> 
+<% @post.pic.each do |x| %>
+  <div >
+    <br><br>
+    <tr>
+      <td>
+        <div class="pic">
+        <a href="/posts/<%= x.id %>"> <%= image_tag(x.image.url, size: "300x300") %> </a>
+        </div>
+       </td>
+       </tr>
+      <br><br>
+    
+      <tr>
+        <td>
+        <%= link_to "Destroy", pics_del_path(x), method: :delete, data: {confirm: "Are you sure?"} %>
+        </td>
+      </tr>
+      <% end %>
+   </div>
+   
+   <br><hr>
+<%= form_for @post, html: {multipart: true} do |f| %>
+ 
+  <%= f.label :"Add new image(s):" %>
+  <br><br>
+   <p align="center"><%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %></p>
+  
+  <br><hr>
+  <%= f.label :"Update description:" %>
+  <br>
+  <%= f.text_area(:description, size: "172x8")  %>
+  <hr>
+  <%= f.submit :Update,class: "btn btn-primary" %>
+
+  <% end %> 

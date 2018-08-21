@@ -3,14 +3,19 @@
     <br><br>
     <tr>
       <td>
-        <%= image_tag(x.image.url, size: "300x300") %>
+        <div class="pic">
+        <%  x.pic.each do |y| %>
+          <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "300x300") %> </a>
+          <% end %>
+        </div>
+        
         
       </td>
        </tr>
        <br><br>
       <tr>
         <td>
-         <%= x.description %>
+        <p class="lead"> <%= x.description %> </p> 
       </td>
       </tr>
       <br><br>
@@ -24,10 +29,22 @@
       </td>
       </tr>
       <% end %>
-   
-    
-      
+   </div>
 
-   
-  </div>
+   <style> 
+ div.pic {
+    margin: auto;
+    padding: 50px;
+    width: 50%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+  img {
+      border-radius: 8px;}
+
+    p.lead {
+    text-align: center;
+    padding: 10px 20px;
+}
+ </style>
 <% end %>

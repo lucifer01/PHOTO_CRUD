@@ -10,6 +10,8 @@ gem 'rails', '~> 5.2.1'
 gem 'sprockets-rails'
 gem 'devise', '~> 4.4', '>= 4.4.3'
 
+gem 'rails_admin', '~> 1.4'
+
 gem 'omniauth-google-oauth2', '~> 0.5.3'
 
 gem 'paperclip', '~> 6.1'
@@ -27,7 +29,9 @@ gem "letter_opener", :group => :development
 
 gem 'bootstrap-sass', '~> 3.3.7'
 
+gem 'dotenv-rails', '~> 2.5', groups: [:development, :test]
 
+gem "letter_opener", :group => :development
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
