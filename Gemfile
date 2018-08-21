@@ -29,9 +29,7 @@ gem "letter_opener", :group => :development
 
 gem 'bootstrap-sass', '~> 3.3.7'
 
-gem 'dotenv-rails', '~> 2.5', groups: [:development, :test]
 
-gem "letter_opener", :group => :development
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -74,6 +72,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'dotenv-rails', '~> 2.5'
+  gem "letter_opener"
 end
 
 group :test do
@@ -82,6 +83,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'dotenv-rails', '~> 2.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
