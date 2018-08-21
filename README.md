@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Photo Crude Test
 
-Things you may want to cover:
+This project deals with the CRUD operation of the image(s) using the rails framework.
 
-* Ruby version
 
-* System dependencies
+# Getting Starting with the Project
 
-* Configuration
+The project is done in rails 5.2. To get started with the project, we need to follow the steps mentioned below:
 
-* Database creation
+1. Clone the code from the git. Using code shown below
 
-* Database initialization
+  git clone git@github.com:lucifer01/PHOTO_CRUD.git
 
-* How to run the test suite
+2. Install all gems inside Gemfile using bundle command
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Inside the config folder there is filename called ``database.yml.sample`` Change it to ``database.yml`` and give your username and password with database name of your choice.
 
-* Deployment instructions
+4. Run ``rake jobs:work`` to send email for password confirmation and password reset.
 
-* ...
+5. Run ``rails s`` to serve the application. then run this app in browser with ipaddress =  "localhost:3000"
+
+
