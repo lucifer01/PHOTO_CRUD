@@ -33,6 +33,9 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.delivery_method = :letter_opener
+  #config.action_mailer.perform_deliveries = true
+
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
   # Print deprecation notices to the Rails logger.
@@ -52,13 +55,14 @@ Rails.application.configure do
   # number of complex assets.
 
   config.action_mailer.delivery_method = :letter_opener
+  #config.action_mailer.delivery_method = :smtp
 
   ActionMailer::Base.smtp_settings = {
    :address        => 'smtp.sendgrid.net',
    :port           => '587',
    :authentication => :plain,
-   :user_name      => 'binod123',
-   :password       => '@java@123',
+   :user_name      => ENV['SENDGRID_USERNAME'],
+   :password       => ENV['SENDGRID_PASSWORD'],
    :domain         => 'localhost:3000',
    :enable_starttls_auto => true
  }

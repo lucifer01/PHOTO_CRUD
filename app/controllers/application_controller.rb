@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
 
+  def test
+    binding.pry
+  end
+
   protected
 
  def configure_permitted_parameters

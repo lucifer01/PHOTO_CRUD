@@ -1,12 +1,16 @@
 <h2>New Post</h2>
 <hr>
 <%= form_for @post, html: {multipart: true} do |f| %>
-  <%= f.label :image %>
-  <%= f.file_field :image %>
+ 
+  <%= f.label :"Choose image:" %>
+  <br><br>
+   <p align="center"><%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %></p>
+  
+  <br><hr>
+  <%= f.label :"Add description:" %>
   <br>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <br>
-  <%= f.submit :post %>
+  <%= f.text_area(:description, size: "172x8")  %>
+  <hr>
+  <%= f.submit :Post,class: "btn btn-primary" %>
 
   <% end %> 

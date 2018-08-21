@@ -1,3 +1,7 @@
-<%= image_tag(@post.image.url) %>
-<br>
-<%= @post.description %>
+<% @post.pic.each do |x| %>
+
+<%= image_tag(x.image.url) %>
+
+<%end%>
+
+
