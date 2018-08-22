@@ -29,6 +29,7 @@ gem "letter_opener", :group => :development
 
 gem 'bootstrap-sass', '~> 3.3.7'
 
+gem 'bxslider-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'

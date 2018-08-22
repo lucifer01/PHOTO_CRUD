@@ -1,16 +1,19 @@
 <% @post.each do |x| %>
+  <hr>
   <div >
     <br><br>
     <tr>
       <td>
         <div class="pic">
-        <%  x.pic.each do |y| %>
-          <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "300x300") %> </a>
+        <ul class="bxslider">
+          <%  x.pic.each do |y| %>
+          <li>
+            <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "470x350") %> </a>
+          </li>
           <% end %>
+        </ul>
         </div>
-        
-        
-      </td>
+        </td>
        </tr>
        <br><br>
       <tr>
@@ -28,9 +31,13 @@
         <%= link_to "Destroy", x, method: :delete, data: {confirm: "Are you sure?"} %>
       </td>
       </tr>
-      <% end %>
+      <hr>
    </div>
+      <% end %>
 
+
+  <% end %>
+  
    <style> 
  div.pic {
     margin: auto;
@@ -47,4 +54,11 @@
     padding: 10px 20px;
 }
  </style>
-<% end %>
+
+
+ <script type="text/javascript">
+   $(document).ready(function(){
+   $('.bxslider').bxSlider();
+   
+});
+ </script>

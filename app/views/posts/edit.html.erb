@@ -27,7 +27,8 @@
   <%= f.label :"Add new image(s):" %>
   <br><br>
    <p align="center"><%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %></p>
-  
+   <br><hr> 
+    <div class="pic" id="uniq"> </div>
   <br><hr>
   <%= f.label :"Update description:" %>
   <br>
@@ -36,3 +37,42 @@
   <%= f.submit :Update,class: "btn btn-primary" %>
 
   <% end %> 
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    function readURL(input) {
+      for(i=0;i<input.files.length;i++){
+      if (input.files && input.files[i]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+            //$('#blah').attr('src', e.target.result);
+            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="350" width="470" /> </li>')
+            }
+            
+            reader.readAsDataURL(input.files[i]);
+        }
+    } 
+  }
+     $("#post_image").change(function(){
+        readURL(this);  });
+});
+</script>
+
+
+<style type="text/css">
+
+  img {
+      border-radius: 8px;
+      }
+
+  div.pic {
+    margin: auto;
+    padding: 50px;
+    width: 50%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+</style>
+  
