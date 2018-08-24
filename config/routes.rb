@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   get 'pics/:id', to: "pics#show"
   delete 'pics/:id', to: "pics#del",  as: 'pics_del'
 

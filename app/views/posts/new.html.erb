@@ -4,9 +4,13 @@
  
   <%= f.label :"Choose image:" %>
   <br><br>
-   <p align="center"><%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %></p>
-  
-  <br><hr>
+   <p align="center">
+      <%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %>
+  </p>
+    <hr>
+        <div  id="uniq">
+        </div>
+   <hr>
   <%= f.label :"Add description:" %>
   <br>
   <%= f.text_area(:description, size: "172x8")  %>
@@ -14,3 +18,42 @@
   <%= f.submit :Post,class: "btn btn-primary" %>
 
   <% end %> 
+
+<script type="text/javascript">
+    
+   
+
+  $(document).ready(function(){
+    function readURL(input) {
+      for(i=0;i<input.files.length;i++){
+      if (input.files && input.files[i]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+            //$('#blah').attr('src', e.target.result);
+            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="200" width="200" /> </li>')
+            }
+            
+            reader.readAsDataURL(input.files[i]);
+        }
+    } 
+  }
+     $("#post_image").change(function(){
+        readURL(this);  });
+});
+    
+
+
+     
+</script>
+
+
+<style type="text/css">
+
+  img {
+      border-radius: 8px;
+      }
+
+</style>
+
+
