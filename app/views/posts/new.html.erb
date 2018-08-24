@@ -31,7 +31,7 @@
             
         reader.onload = function (e) {
             //$('#blah').attr('src', e.target.result);
-            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="350" width="470" /> </li>')
+            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="410" width="560" /> </li>')
             }
             
             reader.readAsDataURL(input.files[i]);
@@ -56,10 +56,9 @@
 
   div.pic {
     margin: auto;
-    padding: 50px;
     width: 50%;
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
     }
 
 </style>

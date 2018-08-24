@@ -1,50 +1,101 @@
 <% @post.each do |x| %>
   <hr>
   <div >
+    <p class="lead">
+      Post by: <%= x.user.email %>
+    </p>
+    <% if user_signed_in? %>
+      <tr>
+        <td>
+          <%= link_to "Edit-Post |", edit_post_path(x) %>
+        </td>
+        <td>
+          <%= link_to "| Delete-Post", x, method: :delete, data: {confirm: "Are you sure?"} %>
+        </td>
+      </tr>
+    <% end %>
     <br><br>
+
     <tr>
       <td>
         <div class="pic">
         <ul class="bxslider">
           <%  x.pic.each do |y| %>
-          <li>
-            <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "470x350") %> </a>
-          </li>
+           <li>
+            <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "570x400") %> </a>
+            </li>
           <% end %>
         </ul>
         </div>
         </td>
-       </tr>
-       <br><br>
-      <tr>
-        <td>
-        <p class="lead"> <%= x.description %> </p> 
-      </td>
       </tr>
-      <br><br>
-      <% if user_signed_in? %>
+
       <tr>
         <td>
-          <%= link_to "Edit", edit_post_path(x) %>
+          <p class="lead"> <%= x.description %> </p> 
         </td>
-        <td>
-        <%= link_to "Destroy", x, method: :delete, data: {confirm: "Are you sure?"} %>
-      </td>
       </tr>
+
       <hr>
-   </div>
+
+      <div class="comments">
+        <% x.comments.each do |z| %>
+          <p>
+             <%= x.user.email %>: 
+             <%= z.description %>
+          </p>
+          <br>
+          <% if user_signed_in? %>
+            <tr style="text-align: justify;">
+              <td >
+                <%= link_to "Edit    ", edit_comment_path(z) %>
+              </td>
+              <td>  
+                <%= link_to "    Delete", z, method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        <br> <hr>
+        <% end %>
+      </div>
+      
+      <% if user_signed_in? %>
+      <div class="comments">
+        <div class="row">
+          <div class="col-xs-12">
+            <%= form_for(Comment.new, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+                <%= f.hidden_field :post_id, :value => x.id %>
+                <div class="form-group">
+                  <div class="control-label col-sm-2">
+                    <%= f.label :"comment:" %>
+                  </div>
+
+                  <div class="col-sm-8">
+                  <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Please enter a comment", autofocus: true %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="center col-sm-offset-1 col-sm-10">
+                    <%= f.submit :Comment,  class: "btn btn-primary btn-md" %>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
       <% end %>
 
+      <hr>
 
-  <% end %>
-  
+  </div>
+<% end %> 
    <style> 
  div.pic {
     margin: auto;
-    padding: 50px;
     width: 50%;
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
 }
   img {
       border-radius: 8px;}

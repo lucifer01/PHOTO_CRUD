@@ -27,10 +27,10 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       if @post.update(permit_post)
           params[:post][:image].each do |x|
-            @img = Pic.new(permit_image)
-            @img.post_id = @post.id
-            @img.image = x 
-            @img.save
+            img = Pic.new(permit_image)
+            img.post_id = @post.id
+            img.image = x 
+            img.save
         end  
         flash[:success] = "Success"
         redirect_to post_path(@post)
@@ -49,10 +49,10 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
       if @post.save
         params[:post][:image].each do |x|
-          @img = Pic.new(permit_image)
-          @img.post_id = @post.id
-          @img.image = x 
-          @img.save
+          img = Pic.new(permit_image)
+          img.post_id = @post.id
+          img.image = x 
+          img.save
         end  
         flash[:success] = "Success"
         redirect_to post_path(@post)
