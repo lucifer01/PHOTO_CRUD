@@ -8,9 +8,9 @@
       <%= f.file_field(:image, :multiple => true, class: "btn btn-mini" )  %>
   </p>
     <hr>
-        <div class="pic" id="uniq">
+        <div  id="uniq">
         </div>
-  <br><hr>
+   <hr>
   <%= f.label :"Add description:" %>
   <br>
   <%= f.text_area(:description, size: "172x8")  %>
@@ -31,7 +31,7 @@
             
         reader.onload = function (e) {
             //$('#blah').attr('src', e.target.result);
-            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="410" width="560" /> </li>')
+            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="200" width="200" /> </li>')
             }
             
             reader.readAsDataURL(input.files[i]);
@@ -53,13 +53,6 @@
   img {
       border-radius: 8px;
       }
-
-  div.pic {
-    margin: auto;
-    width: 50%;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
-    }
 
 </style>
 
