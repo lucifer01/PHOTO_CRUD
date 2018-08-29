@@ -5,12 +5,12 @@ class CommentsController < ApplicationController
 
   def create
     @cmt = Comment.new(permit_comment)
-    @cmt.post_id = params[:comment][:post_id]
+    @cmt.user_id = current_user.id
       if @cmt.save
         flash[:success] = "Success"
         redirect_to root_path(@cmt)
       end  
-     
+      
   end
 
   def destroy
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
 
 private 
     def permit_comment
-       params.require(:comment).permit(:description) 
+       params.require(:comment).permit(:description, :post_id) 
     end
 
 end

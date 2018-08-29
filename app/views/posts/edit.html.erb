@@ -1,26 +1,16 @@
 <h2>Edit Post</h2>
 <hr>
 
-<% @post.pic.each do |x| %>
-  <div >
-    <br><br>
-    <tr>
-      <td>
-        <div class="pic">
-        <a href="/posts/<%= x.id %>"> <%= image_tag(x.image.url, size: "300x300") %> </a>
-        </div>
-       </td>
-       </tr>
-      <br><br>
+<% @post.pics.each do |x| %>
+ 
     
-      <tr>
-        <td>
+        <br>
+        
+        <a href="/pics/<%=x.id%>"> <%= image_tag(x.image.url, size: "200x200") %> </a>
+        
         <%= link_to "Destroy", pics_del_path(x), method: :delete, data: {confirm: "Are you sure?"} %>
-        </td>
-      </tr>
-      <% end %>
-   </div>
-   
+       
+<% end %>
    <br><hr>
 <%= form_for @post, html: {multipart: true} do |f| %>
  
@@ -47,7 +37,7 @@
             
         reader.onload = function (e) {
             //$('#blah').attr('src', e.target.result);
-            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="350" width="470" /> </li>')
+            $('#uniq').prepend('<li> <img src=" '+e.target.result+' " height="200" width="200" /> </li>')
             }
             
             reader.readAsDataURL(input.files[i]);
@@ -66,12 +56,7 @@
       border-radius: 8px;
       }
 
-  div.pic {
-    margin: auto;
-    width: 27%;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
-    }
+
 
 </style>
   

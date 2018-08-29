@@ -4,15 +4,18 @@ class PostsController < ApplicationController
   end
 
   def index
-    if user_signed_in?
-      @post = current_user.posts
-    else 
       @post = Post.all
-    end
+  end
+
+  def profile
+    @post = current_user.posts
   end
   
   def destroy
-    Post.find(params[:id]).pic.each do |x|
+    Post.find(params[:id]).pics.each do |x|
+      x.destroy
+    end
+    Post.find(params[:id]).comments.each do |x|
       x.destroy
     end
     Post.find(params[:id]).destroy   
