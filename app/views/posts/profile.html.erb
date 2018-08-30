@@ -1,0 +1,108 @@
+<p class="lead" >User e-mail: <%= User.find(current_user.id).email %></p>
+<br><hr>
+<% if @posts %>
+  <p class="lead"> User Posts: </p>
+    <% @posts.each do |post| %>
+      <p class="lead">
+        Post by: <%= post.user.email %>
+      </p>
+     <%= link_to "Edit-Post |", edit_post_path(post) %>
+    
+      <%= link_to "| Delete-Post", post, method: :delete, data: {confirm: "Are you sure?"} %>
+  <br>
+  <div class="pic">
+    <ul class="bxslider">
+      <%  post.pics.each do |pic| %>
+        <li>
+          <a href="/pics/<%=pic.id%>"> <%= image_tag(pic.image.url, size: "570x400") %> </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <p class="lead"> <%= post.description %> </p> 
+  <hr>
+
+  <% if post.comments.count > 0 %>
+    <div class="show-comments">
+      <button id="show<%= post.comments.ids[0] %>" class= "btn btn-primary btn-md" onclick="myFunction(<%= post.comments.ids[0] %>)">
+         Show Comments
+      </button>
+      <br><br>
+      <div id="myDIV<%= post.comments.ids[0] %>" style="display: none" >
+        <% post.comments.each do |comment| %>
+          <p>
+            <mark style="background-color: #D0D3D4; border-radius: 10px;"> <b><%= User.find(comment.user_id).email %>:</b> <%= comment.description %></mark>
+          </p>
+          <br>
+          <% if comment.user_id == current_user.id %>
+            <%= link_to "Edit    ", edit_comment_path(comment) %>
+            <%= link_to "    Delete", comment, method: :delete %>
+          <% end %>
+          <br> <hr>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+      
+  
+  <div class="comments">
+    <div class="row">
+      <div class="col-xs-12">
+        <%= form_for(Comment.new, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+            <%= f.hidden_field :post_id, :value => post.id %>
+              <div class="form-group">
+                <div class="control-label col-sm-2">
+                  <%= f.label :"comment:" %>
+                </div>
+                <div class="col-sm-8">
+                  <%= f.text_area :description, rows: 3, class: "form-control", placeholder:"Please enter a comment", autofocus: true %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="center col-sm-offset-1 col-sm-10">
+                  <%= f.submit :Comment,  class: "btn btn-primary btn-md" %>
+                </div>
+              </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <% end %>
+<% end %>
+
+<style> 
+ div.pic {
+    margin: auto;
+    width: 50%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
+    }
+  img {
+      border-radius: 8px;
+      }
+
+    p.lead {
+    text-align: center;
+    padding: 10px 20px;
+    }
+</style>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+   $('.bxslider').bxSlider();
+   });
+
+
+   function myFunction(e) {
+    var x = document.getElementById(`myDIV${e}`);
+    if (x.style.display === "none") {
+        document.getElementById(`show${e}`).innerHTML = "Hide comments";
+        x.style.display = "block";
+    } else {
+         document.getElementById(`show${e}`).innerHTML = "Show comments";
+        x.style.display = "none";
+         }
+    }
+</script>

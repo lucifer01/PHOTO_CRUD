@@ -1,0 +1,5 @@
+<% @dislikes.each do |x|  %>
+
+  <%= User.find(x.user_id).email %>
+  <br>
+<% end %>

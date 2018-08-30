@@ -1,11 +1,18 @@
+# frozen_string_literal: true
+
+# Model for Users
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
   has_many :posts
+  has_many :comments
+  has_many :likes
 
-
+  def already_likes?(post_id)
+    self.likes.where(post_id: post_id).size > 0
+  end
 
   #This method tries to find an existing user by the provider and uid fields
   def self.from_omniauth(auth)
@@ -49,3 +56,7 @@ class User < ApplicationRecord
     #end
   #end
 end
+
+
+
+
