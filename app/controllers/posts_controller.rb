@@ -4,19 +4,19 @@ class PostsController < ApplicationController
   end
 
   def index
-      @post = Post.all
+      @posts = Post.all
   end
 
   def profile
-    @post = current_user.posts
+    @posts = current_user.posts
   end
   
   def destroy
-    Post.find(params[:id]).pics.each do |x|
-      x.destroy
+    Post.find(params[:id]).pics.each do |pic|
+      pic.destroy
     end
-    Post.find(params[:id]).comments.each do |x|
-      x.destroy
+    Post.find(params[:id]).comments.each do |comment|
+      comment.destroy
     end
     Post.find(params[:id]).destroy   
     redirect_to posts_path

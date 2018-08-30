@@ -1,4 +1,4 @@
-  <% Post.find(params[:id]).likes.where(vote: true).each do |x|  %>
+  <% @likes.each do |x|  %>
   <%= User.find(x.user_id).email %>
   <br>
   <% end %>

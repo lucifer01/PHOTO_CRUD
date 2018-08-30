@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  post 'likes/up', to: "likes#up", as: 'likes_up'
-  post 'likes/down', to: "likes#down", as: 'likes_down'
+  post 'likes/up', to: "likes#up"
+  post 'likes/down', to: "likes#down"
   get 'likes/show/like/:id', to: "likes#show_likes", as: 'likes_show_like'
   get 'likes/show/dislike/:id', to: "likes#show_dislikes", as: 'likes_show_dislike'
 

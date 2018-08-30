@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Model for Posts
 class Post < ApplicationRecord
   belongs_to :user
   has_many :pics

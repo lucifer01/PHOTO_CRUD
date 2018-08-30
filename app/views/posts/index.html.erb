@@ -1,91 +1,90 @@
-<% @post.each do |x| %>
+<% @posts.each do |post| %>
   <hr>
   <div >
     <p class="lead">
-      Post by: <%= x.user.email %>
+      Post by: <%= post.user.email %>
     </p>
     <% if user_signed_in? %>
       
-          <%= link_to "Edit-Post |", edit_post_path(x) %>
+          <%= link_to "Edit-Post |", edit_post_path(post) %>
         
-          <%= link_to "| Delete-Post", x, method: :delete, data: {confirm: "Are you sure?"} %>
+          <%= link_to "| Delete-Post", post, method: :delete, data: {confirm: "Are you sure?"} %>
       
     <% end %>
     <br><br>
+    
+    <div class="pic">
+      <ul class="bxslider">
+        <%  post.pics.each do |pic| %>
+         <li>
+          <a href="/pics/<%=pic.id%>"> <%= image_tag(pic.image.url, size: "570x400") %> </a>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+    <p class="lead"> <%= post.description %> </p>
 
-   
-        <div class="pic">
-        <ul class="bxslider">
-          <%  x.pics.each do |y| %>
-           <li>
-            <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "570x400") %> </a>
-            </li>
+    <div class="up-down">
+      <% if !(user_signed_in?) %>
+        <a href="/likes/show/like/<%= post.id %>" > <%= post.likes.where(vote: true).count.to_s+" " %></a><button class="far fa-thumbs-up"></button>
+      <% end %>
+      <% if user_signed_in? %>
+        <% if current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == true %>
+         <a href="/likes/show/like/<%= post.id %>" > <%= post.likes.where(vote: true).count.to_s+" " %></a><button class="far fa-thumbs-up"></button>
+        <% elsif current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == false %>
+          <%= form_tag("likes/up", method: "post", style: 'display:inline;') do %>
+            <%= hidden_field_tag(:post_id, "#{post.id}") %>
+            <%= hidden_field_tag(:like_id, "#{current_user.likes.find_by(post_id: post.id).id}") %>
+            <!-- <%= submit_tag("Like(s)") %> -->
+            <a href="/likes/show/like/<%= post.id %>" > <%= post.likes.where(vote: true).count.to_s+" " %></a><button class="far fa-thumbs-up"></button>
           <% end %>
-        </ul>
-        </div>
-      
-        <div class="up-down">
-         <a href="/likes/show/like/<%= x.id %>" > <%= x.likes.where(vote: true).count %> Like(s) </a>
-         <br>
-          <% if user_signed_in? %>
-            <% if current_user.already_likes?(x.id) and current_user.likes.find_by(post_id: x.id).vote == true %>
-              <button>Like(s)</button>
-            <% elsif current_user.already_likes?(x.id) and current_user.likes.find_by(post_id: x.id).vote == false %>
-              <%= form_tag("likes/up", method: "post") do %>
-                <%= hidden_field_tag(:post_id, "#{x.id}") %>
-                <%= hidden_field_tag(:like_id, "#{current_user.likes.find_by(post_id: x.id).id}") %>
-                <%= submit_tag("Like(s)") %>
-              <% end %>
-            <% else %>
-              <%= form_tag("likes/up", method: "post") do %>
-                <%= hidden_field_tag(:post_id, "#{x.id}") %>
-                <%= submit_tag("Like(s)") %>
-              <% end %>
-            <% end %>
+        <% else %>
+          <%= form_tag("likes/up", method: "post", style: 'display:inline;') do %>
+            <%= hidden_field_tag(:post_id, "#{post.id}") %>
+           <!--  <%= submit_tag("Like(s)") %> -->
+            <a href="/likes/show/like/<%= post.id %>" > <%= post.likes.where(vote: true).count.to_s+" " %></a><button class="far fa-thumbs-up"></button>
           <% end %>
-
-          <br><br>
-          <a href="/likes/show/dislike/<%= x.id %>" > <%= x.likes.where(vote: false).count %> Dislike(s) </a>
-          <br>
-          <% if user_signed_in? %>
-           <% if current_user.already_likes?(x.id) and current_user.likes.find_by(post_id: x.id).vote == false  %>
-                <button>Dislike(s)</button>
-            <% elsif current_user.already_likes?(x.id) and current_user.likes.find_by(post_id: x.id).vote == true %> 
-              <%= form_tag("likes/down", method: "post") do %>
-                <%= hidden_field_tag(:post_id, "#{x.id}") %>
-                <%= hidden_field_tag(:like_id, "#{current_user.likes.find_by(post_id: x.id).id}") %>
-                <%= submit_tag("Dislike(s)") %>  
-              <% end %>
-            <% else %>
-              <%= form_tag("likes/down", method: "post") do %>
-                <%= hidden_field_tag(:post_id, "#{x.id}") %>
-                <%= submit_tag("Dislike(s)") %>  
-              <% end %>
-            <% end %>
+        <% end %>
+      <% end %>
+      <% if !(user_signed_in?) %>
+        <a href="/likes/show/dislike/<%= post.id %>" > <%= post.likes.where(vote: false).count.to_s+" " %></a><button class="far fa-thumbs-down"></button>
+      <% end %>
+      <% if user_signed_in? %>
+       <% if current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == false  %>
+          <a href="/likes/show/dislike/<%= post.id %>" > <%= post.likes.where(vote: false).count.to_s+" " %></a><button class="far fa-thumbs-down"></button>
+        <% elsif current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == true %> 
+          <%= form_tag("likes/down", method: "post", style: 'display:inline;') do %>
+            <%= hidden_field_tag(:post_id, "#{post.id}") %>
+            <%= hidden_field_tag(:like_id, "#{current_user.likes.find_by(post_id: post.id).id}") %>
+           <a href="/likes/show/dislike/<%= post.id %>" > <%= post.likes.where(vote: false).count.to_s+" " %></a><button class="far fa-thumbs-down"></button>
           <% end %>
-        </div>
-      
-
-     <p class="lead"> <%= x.description %> </p> 
+        <% else %>
+          <%= form_tag("likes/down", method: "post", style: 'display:inline;') do %>
+            <%= hidden_field_tag(:post_id, "#{post.id}") %>
+            <a href="/likes/show/dislike/<%= post.id %>" > <%= post.likes.where(vote: false).count.to_s+" " %></a><button class="far fa-thumbs-down"></button>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
      <hr>
-     <% if x.comments.count > 0 %>
+     <% if post.comments.count > 0 %>
         <div class="show-comments">
-          <button id="show<%= x.comments.ids[0] %>" class= "btn btn-primary btn-md" onclick="showHideComments(<%= x.comments.ids[0] %>)">
+          <button id="show<%= post.comments.ids[0] %>" class= "btn btn-primary btn-md" onclick="showHideComments(<%= post.comments.ids[0] %>)">
            Show Comments
           </button>
           <br><br>
-          <div id="myDIV<%= x.comments.ids[0] %>" style="display: none" >
-            <% x.comments.each do |z| %>
+          <div id="myDIV<%= post.comments.ids[0] %>" style="display: none" >
+            <% post.comments.each do |comment| %>
             <p>
-              <mark style="background-color: #D0D3D4; border-radius: 10px;"> <b><%= User.find(z.user_id).email %>:</b> <%= z.description %></mark>
+              <mark style="background-color: #D0D3D4; border-radius: 10px;"> <b><%= User.find(comment.user_id).email %>:</b> <%= comment.description %></mark>
                
             </p>
             <br>
-            <% if user_signed_in? and z.user_id == current_user.id %>
+            <% if user_signed_in? and comment.user_id == current_user.id %>
               
-                  <%= link_to "Edit    ", edit_comment_path(z) %>
+                  <%= link_to "Edit    ", edit_comment_path(comment) %>
              
-                  <%= link_to "    Delete", z, method: :delete %>
+                  <%= link_to "    Delete", comment, method: :delete %>
               
             <% end %>
           <br> <hr>
@@ -99,7 +98,7 @@
         <div class="row">
           <div class="col-xs-12">
             <%= form_for(Comment.new, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-                <%= f.hidden_field :post_id, :value => x.id %>
+                <%= f.hidden_field :post_id, :value => post.id %>
                 <div class="form-group">
                   <div class="control-label col-sm-2">
                     <%= f.label :"comment:" %>
@@ -158,11 +157,6 @@
         x.style.display = "none";
     }
 }
-
-  function upDown(e){
-
-  }
-
 
 </script>
 

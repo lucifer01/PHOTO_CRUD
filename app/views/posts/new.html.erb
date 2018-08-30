@@ -17,12 +17,9 @@
   <hr>
   <%= f.submit :Post,class: "btn btn-primary" %>
 
-  <% end %> 
+<% end %> 
 
 <script type="text/javascript">
-    
-   
-
   $(document).ready(function(){
     function readURL(input) {
       for(i=0;i<input.files.length;i++){
@@ -36,17 +33,12 @@
             
             reader.readAsDataURL(input.files[i]);
         }
-    } 
-  }
+      } 
+    }
      $("#post_image").change(function(){
         readURL(this);  });
-});
-    
-
-
-     
+  });
 </script>
-
 
 <style type="text/css">
 
@@ -55,5 +47,6 @@
       }
 
 </style>
+
 
 
