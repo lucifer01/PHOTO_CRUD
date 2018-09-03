@@ -1,0 +1,21 @@
+ <!-- Trigger the modal with an anchor tag -->
+<a  href="#" id="dislikes_count<%=post.id%>" data-toggle="modal" data-target="#myModal2<%=post.id%>"> <%= post.likes.where(vote: false).count.to_s+" " %></a>
+<!-- Modal -->
+<div class="modal fade" id="myModal2<%=post.id%>" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> Disliked by:</h4>
+      </div>
+      <div class="modal-body">
+         <% post.likes.where(vote: false).each do |dislike|%>
+            <%= dislike.user.email%>
+        <%end%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

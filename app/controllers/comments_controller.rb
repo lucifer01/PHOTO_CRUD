@@ -2,26 +2,25 @@
 
 # This class controls CRUD operation for feature/comment
 class CommentsController < ApplicationController
-  def index
-    @cmt = Comment.new
-  end
-
+  respond_to :html, :js
+  
   def create
     @cmt = Comment.new(permit_comment)
     @cmt.user_id = current_user.id
     if @cmt.save
       flash[:success] = 'Success'
-      redirect_to root_path(@cmt)
     else
       flash[:error] = @cmt.errors.full_messages
-      redirect_to root_path
     end
   end
 
   def destroy
     @cmt = Comment.find(params[:id])
-    @cmt.destroy
-    redirect_to posts_path
+    if @cmt.destroy
+      flash[:success] = 'Success'
+    else
+      flash[:error] = @cmt.errors.full_messages
+    end   
   end
 
   def edit
@@ -32,10 +31,8 @@ class CommentsController < ApplicationController
     @cmt = Comment.find(params[:id])
     if @cmt.update(permit_comment)
       flash[:success] = 'Success'
-      redirect_to posts_path(@cmt)
     else
       flash[:error] = @cmt.errors.full_messages
-      redirect_to edit_comment_path
     end
   end
 

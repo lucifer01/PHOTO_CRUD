@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   end
 
   def index
-      @posts = Post.all
+    @posts = Post.all    
   end
 
   def profile
@@ -23,16 +23,16 @@ class PostsController < ApplicationController
   end
 
   def edit
-      @post = Post.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def update 
       @post = Post.find(params[:id])
       if @post.update(permit_post)
-          params[:post][:image].each do |x|
+          params[:post][:image].each do |pic|
             img = Pic.new(permit_image)
             img.post_id = @post.id
-            img.image = x 
+            img.image = pic 
             img.save
         end  
         flash[:success] = "Success"
@@ -51,10 +51,10 @@ class PostsController < ApplicationController
     @post = Post.new(permit_post)
     @post.user_id = current_user.id
       if @post.save
-        params[:post][:image].each do |x|
+        params[:post][:image].each do |pic|
           img = Pic.new(permit_image)
           img.post_id = @post.id
-          img.image = x 
+          img.image = pic 
           img.save
         end  
         flash[:success] = "Success"

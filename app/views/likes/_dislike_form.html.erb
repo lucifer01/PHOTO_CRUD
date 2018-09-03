@@ -1,0 +1,24 @@
+<div class="dislike-form" id="dislike_form<%=post.id%>">
+<!-- like form -->
+  <% if !(user_signed_in?) %>
+    <button class="far fa-thumbs-down"></button>
+  <% end %>
+  <% if user_signed_in? %>
+    <% if current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == false %>
+     <button class="far fa-thumbs-down"></button>
+    <% elsif current_user.already_likes?(post.id) and current_user.likes.find_by(post_id: post.id).vote == true %>
+      <%= form_tag("likes/down", remote: true, method: "post", style: "display: inline") do %>
+        <%= hidden_field_tag(:post_id, "#{post.id}") %>
+        <%= hidden_field_tag(:like_id, "#{current_user.likes.find_by(post_id: post.id).id}") %>
+        <!-- <%= submit_tag("Like(s)") %> -->
+        <button class="far fa-thumbs-down"></button>
+      <% end %>
+    <% else %>
+      <%= form_tag("likes/down", remote: true, method: "post", style: "display: inline") do %>
+        <%= hidden_field_tag(:post_id, "#{post.id}") %>
+       <!--  <%= submit_tag("Like(s)") %> -->
+        <button class="far fa-thumbs-down"></button>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+$('#like_form<%=@dislike.post.id%>').replaceWith("<%= j render partial: 'likes/like_form', locals: {post: @dislike.post} %>");
+$('#likes_count<%=@dislike.post.id%>').replaceWith("<%= j render partial: 'likes/likes_count', locals: {post: @dislike.post} %>");
+$('#dislike_form<%=@dislike.post.id%>').replaceWith("<%= j render partial: 'likes/dislike_form', locals: {post: @dislike.post} %>");
+$('#dislikes_count<%=@dislike.post.id%>').replaceWith("<%= j render partial: 'likes/dislikes_count', locals: {post: @dislike.post} %>");

@@ -8,4 +8,5 @@ class PicsController < ApplicationController
     @img.destroy
     redirect_to edit_post_path(@img.post)
   end
+
 end

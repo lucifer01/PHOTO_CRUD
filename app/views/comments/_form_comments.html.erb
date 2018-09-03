@@ -1,0 +1,23 @@
+<div class="comments" id="form_comments">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_for(Comment.new, remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <%= f.hidden_field :post_id, :value => post.id %>
+        <div class="form-group">
+          <div class="control-label col-sm-2">
+            <%= f.label :"comment:" %>
+          </div>
+          <div class="col-sm-8">
+          <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Please enter a comment", autofocus: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="center col-sm-offset-1 col-sm-10">
+            <%= f.submit :Comment,  class: "btn btn-primary btn-md" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
