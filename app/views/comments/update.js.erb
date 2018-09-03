@@ -1,0 +1,6 @@
+
+$('#myDIV<%=@cmt.post.id%>').replaceWith("<%= j render partial: 'comments/show_comments', locals: {post: @cmt.post} %>");
+var x = document.getElementById('myDIV<%=@cmt.post.id%>');
+x.style.display = "block";
+
+$('#edit_comments').replaceWith("<%= j render partial: 'comments/form_comments', locals: {post: @cmt.post} %>");

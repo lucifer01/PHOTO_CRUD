@@ -1,43 +1,58 @@
-<% @post.each do |x| %>
+<% @posts.each do |post| %>
+  <hr>
   <div >
+    <p class="lead">
+      Post by: <%= post.user.email %>
+    </p>
+    <% if user_signed_in? %>
+      <%= link_to "Edit-Post |", edit_post_path(post) %>
+      <%= link_to "| Delete-Post", post, method: :delete, data: {confirm: "Are you sure?"} %>
+    <% end %>
     <br><br>
-    <tr>
-      <td>
-        <div class="pic">
-        <%  x.pic.each do |y| %>
-          <a href="/pics/<%=y.id%>"> <%= image_tag(y.image.url, size: "300x300") %> </a>
-          <% end %>
-        </div>
-        
-        
-      </td>
-       </tr>
-       <br><br>
-      <tr>
-        <td>
-        <p class="lead"> <%= x.description %> </p> 
-      </td>
-      </tr>
-      <br><br>
-      <% if user_signed_in? %>
-      <tr>
-        <td>
-          <%= link_to "Edit", edit_post_path(x) %>
-        </td>
-        <td>
-        <%= link_to "Destroy", x, method: :delete, data: {confirm: "Are you sure?"} %>
-      </td>
-      </tr>
-      <% end %>
-   </div>
+    
+    <div class="pic">
+      <ul class="bxslider">
+        <%  post.pics.each do |pic| %>
+         <li>
+          <a href="/pics/<%=pic.id%>"> <%= image_tag(pic.image.url, size: "570x400") %> </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <p class="lead"> <%= post.description %> </p>
+ <!-- like counts and form -->
+  
+    <%= render partial: "likes/likes_count", locals: {post: post} %>
+    <%= render partial: "likes/like_form", locals: {post: post} %>
+      
+ <!-- dislike counts and form -->
+    <%= render partial: "likes/dislikes_count", locals: {post: post} %>
+    <%= render partial: "likes/dislike_form", locals: {post: post} %>
+    <hr>
 
-   <style> 
+<!--  Showing Comments  -->
+     <% if post.comments.count > 0 %>
+        <button id="show<%= post.id %>" class= "btn btn-primary btn-md" onclick="showHideComments(<%= post.id %>)">
+          Show Comments
+        </button>
+        <br><br>
+        <%= render partial: "comments/show_comments", locals: {post: post} %>
+    <% end %>
+        <br>   
+<!-- Form for comments   -->
+    <% if user_signed_in? %>
+      <%= render partial: "comments/form_comments", locals: {post: post} %>
+    <% end %>
+    <hr>
+  </div>
+<% end %> 
+
+<style> 
  div.pic {
     margin: auto;
-    padding: 50px;
     width: 50%;
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 0 rgba(0, 0, 0, 0.20);
 }
   img {
       border-radius: 8px;}
@@ -46,5 +61,27 @@
     text-align: center;
     padding: 10px 20px;
 }
- </style>
-<% end %>
+</style>
+
+
+ <script type="text/javascript">
+  $(document).ready(function(){
+  $('.bxslider').bxSlider();
+  });
+
+
+  function showHideComments(e) {
+    var x = document.getElementById(`myDIV${e}`);
+    if (x.style.display === "none") {
+      document.getElementById(`show${e}`).innerHTML = "Hide comments";
+      x.style.display = "block";
+    } 
+    else {
+         document.getElementById(`show${e}`).innerHTML = "Show comments";
+        x.style.display = "none";
+      }
+  }
+
+
+</script>
+
